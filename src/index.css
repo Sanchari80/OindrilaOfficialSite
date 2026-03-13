@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap');
+
+:root {
+  --film-black:   #14120e;
+  --film-dark:    #1c1a14;
+  --film-gold:    #d4aa52;
+  --film-gold-lt: #edd07e;
+  --film-cream:   #f8f2e2;
+  --film-red:     #c0392b;
+  --sprocket-bg:  #1a1814;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: #1a1814;
+  color: var(--film-cream);
+  font-family: 'Crimson Pro', Georgia, serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ── Film grain ── */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 1;
+  opacity: 0.03; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 300px 300px;
+  animation: grainShift 0.1s steps(1) infinite;
+}
+@keyframes grainShift {
+  0%   { background-position:   0px   0px; }
+  25%  { background-position: -60px -40px; }
+  50%  { background-position:  30px -80px; }
+  75%  { background-position: -90px  30px; }
+  100% { background-position:  45px  60px; }
+}
+
+/* ── Scan lines ── */
+.film-scanline {
+  position: fixed; inset: 0; z-index: 2; pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 3px,
+    rgba(0,0,0,0.025) 3px, rgba(0,0,0,0.025) 4px
+  );
+}
+
+/* ── Spotlight beams ── */
+.spotlight-left {
+  position: fixed; top: -10%; left: -5%;
+  width: 55vw; height: 130vh;
+  background: conic-gradient(from 0deg at 10% 0%, transparent 0deg, rgba(201,168,76,0.04) 12deg, transparent 24deg);
+  transform-origin: top left;
+  z-index: 2; pointer-events: none;
+  animation: spotLeft 11s ease-in-out infinite;
+  filter: blur(18px);
+}
+@keyframes spotLeft {
+  0%,100% { transform: rotate(-4deg); opacity: 0.7; }
+  50%     { transform: rotate(6deg);  opacity: 1;   }
+}
+
+.spotlight-right {
+  position: fixed; top: -10%; right: -5%;
+  width: 55vw; height: 130vh;
+  background: conic-gradient(from 180deg at 90% 0%, transparent 0deg, rgba(201,168,76,0.035) 12deg, transparent 24deg);
+  transform-origin: top right;
+  z-index: 2; pointer-events: none;
+  animation: spotRight 13s ease-in-out infinite;
+  filter: blur(18px);
+}
+@keyframes spotRight {
+  0%,100% { transform: rotate(4deg);  opacity: 0.6; }
+  50%     { transform: rotate(-6deg); opacity: 1;   }
+}
+
+/* ── Centre projector beam ── */
+.projector-beam {
+  position: fixed; top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 4px; height: 100vh;
+  background: linear-gradient(to bottom, rgba(201,168,76,0.12) 0%, rgba(201,168,76,0.03) 50%, transparent 100%);
+  z-index: 2; pointer-events: none;
+  filter: blur(8px);
+  animation: beamPulse 6s ease-in-out infinite;
+}
+@keyframes beamPulse {
+  0%,100% { opacity: 0.5; }
+  50%     { opacity: 1;   }
+}
+
+/* ── Ambient glow pools ── */
+.glow-amber {
+  position: fixed; bottom: -20%; left: 10%;
+  width: 500px; height: 400px;
+  background: radial-gradient(ellipse, rgba(201,168,76,0.07) 0%, transparent 70%);
+  z-index: 2; pointer-events: none;
+  animation: glowDrift 16s ease-in-out infinite;
+}
+.glow-red {
+  position: fixed; top: 10%; right: 5%;
+  width: 350px; height: 350px;
+  background: radial-gradient(ellipse, rgba(192,57,43,0.02) 0%, transparent 70%);
+  z-index: 2; pointer-events: none;
+  animation: glowDrift 20s ease-in-out infinite reverse;
+}
+@keyframes glowDrift {
+  0%,100% { transform: translate(0,0)          scale(1);    opacity: 0.8; }
+  33%     { transform: translate(40px,-30px)   scale(1.1);  opacity: 1;   }
+  66%     { transform: translate(-30px,20px)   scale(0.95); opacity: 0.6; }
+}
+
+/* ── Floating flyers (used in CineplexBackground.jsx) ── */
+@keyframes flyerFloat1 {
+  0%   { transform: translateY(110vh) rotate(-6deg) scale(0.85); opacity: 0;    }
+  8%   { opacity: 0.13; }
+  90%  { opacity: 0.09; }
+  100% { transform: translateY(-18vh) rotate(4deg)  scale(1);    opacity: 0;    }
+}
+@keyframes flyerFloat2 {
+  0%   { transform: translateY(110vh) rotate(8deg)  scale(0.9);  opacity: 0;    }
+  8%   { opacity: 0.11; }
+  90%  { opacity: 0.07; }
+  100% { transform: translateY(-15vh) rotate(-5deg) scale(1.05); opacity: 0;    }
+}
+@keyframes flyerFloat3 {
+  0%   { transform: translateY(110vh) rotate(-3deg) scale(0.8);  opacity: 0;    }
+  10%  { opacity: 0.14; }
+  88%  { opacity: 0.09; }
+  100% { transform: translateY(-20vh) rotate(6deg)  scale(1.1);  opacity: 0;    }
+}
+
+/* ── Top / bottom film strip borders ── */
+.film-border-top, .film-border-bottom {
+  position: fixed; left: 0; right: 0; height: 18px;
+  z-index: 10; pointer-events: none;
+  background: var(--sprocket-bg);
+}
+.film-border-top    { top: 0;    border-bottom: 1px solid rgba(201,168,76,0.15); }
+.film-border-bottom { bottom: 0; border-top:    1px solid rgba(201,168,76,0.15); }
+.film-border-top::before, .film-border-bottom::before {
+  content: ''; display: block; width: 100%; height: 100%;
+  background: repeating-linear-gradient(
+    90deg, transparent 0px, transparent 6px,
+    var(--film-black) 6px, var(--film-black) 18px,
+    transparent 18px, transparent 26px
+  );
+  opacity: 0.65;
+}
+
+/* ── Side tape strips ── */
+.film-side-left, .film-side-right {
+  position: fixed; top: 18px; bottom: 18px; width: 20px;
+  z-index: 9; pointer-events: none;
+  background: var(--sprocket-bg);
+}
+.film-side-left  { left: 0;  border-right: 1px solid rgba(201,168,76,0.1); }
+.film-side-right { right: 0; border-left:  1px solid rgba(201,168,76,0.1); }
+.film-side-left::before, .film-side-right::before {
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    180deg, transparent 0px, transparent 8px,
+    var(--film-black) 8px, var(--film-black) 16px,
+    transparent 16px, transparent 26px
+  );
+  opacity: 0.55;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-track { background: var(--film-black); }
+::-webkit-scrollbar-thumb { background: rgba(201,168,76,0.3); border-radius: 3px; }
+
+#root { position: relative; z-index: 5; }
