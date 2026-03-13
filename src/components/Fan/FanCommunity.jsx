@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 import { LogOut, Send, Image as ImageIcon, Users, X, Upload } from 'lucide-react';
 
 /* ══ CONFIG ══ */
-const SOCKET_URL    = 'http://localhost:4000'; // production e server URL
+const SOCKET_URL = 'https://oindrilaofficialsite.onrender.com';// production e server URL
 const CLOUD_NAME    = 'danbshghf';
 const UPLOAD_PRESET = 'danbshghf';
 
