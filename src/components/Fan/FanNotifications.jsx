@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { Bell, BellOff, ExternalLink, Megaphone, X, Trash2, Calendar } from 'lucide-react';
 import { io } from 'socket.io-client';
 
-const SOCKET_URL = 'http://localhost:4000';
+const SOCKET_URL = 'https://oindrilaofficialsite.onrender.com';
 
 /* ══ SOUNDS ══ */
 

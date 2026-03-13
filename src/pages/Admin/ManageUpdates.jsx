@@ -11,7 +11,7 @@ import { io } from 'socket.io-client';
 import CustomInput from '../../components/UI/CustomInput';
 import CustomButton from '../../components/UI/CustomButton';
 
-const SOCKET_URL    = 'http://localhost:4000';
+const SOCKET_URL = 'https://oindrilaofficialsite.onrender.com';
 const CLOUD_NAME    = "danbshghf";
 const UPLOAD_PRESET = "danbshghf";
 const ADMIN_PASS    = import.meta.env.VITE_ADMIN_PASS;

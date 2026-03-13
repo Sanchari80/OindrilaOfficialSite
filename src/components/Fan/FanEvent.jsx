@@ -5,7 +5,7 @@ import {
 } from 'firebase/firestore';
 import { io } from 'socket.io-client';
 
-const SOCKET_URL = 'http://localhost:4000';
+const SOCKET_URL = 'https://oindrilaofficialsite.onrender.com';
 
 /* ══ Fonts & Keyframes ══ */
 const FontImport = () => (
