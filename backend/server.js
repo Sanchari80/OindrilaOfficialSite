@@ -12,7 +12,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: '*', // production e frontend URL deben
+    origin: '*',
     methods: ['GET', 'POST'],
   },
 });
@@ -21,10 +21,6 @@ app.use(cors());
 app.use(express.json());
 
 app.get('/', (req, res) => res.send('Fan Community Chat Server Running 🎬'));
-
-// ── In-memory message store (max 100) ──
-const messages = [];
-const MAX_MSG  = 100;
 
 // ── Connected users map: socketId → { uid, name, avatar } ──
 const onlineUsers = new Map();
@@ -35,8 +31,6 @@ io.on('connection', (socket) => {
   // ── Fan joins ──
   socket.on('fan:join', ({ uid, name, avatar }) => {
     onlineUsers.set(socket.id, { uid, name, avatar });
-    // send last 100 messages to new joiner
-    socket.emit('messages:history', messages);
     // broadcast updated online list
     io.emit('users:online', Array.from(onlineUsers.values()));
     // join notification
@@ -49,34 +43,29 @@ io.on('connection', (socket) => {
     console.log(`👤 ${name} joined`);
   });
 
-  // ── Fan sends message ──
-  socket.on('chat:send', ({ uid, name, avatar, text, bgUrl }) => {
-    if (!text?.trim()) return;
+  // ── Fan sends message (Firestore saves from client, socket just broadcasts) ──
+  socket.on('chat:send', ({ uid, name, avatar, text, bgUrl, imageUrl }) => {
     const msg = {
       id: Date.now() + Math.random(),
       uid, name, avatar,
-      text: text.trim(),
-      bgUrl: bgUrl || null,
+      text: text?.trim() || '',
+      bgUrl:    bgUrl    || null,
+      imageUrl: imageUrl || null,
       timestamp: new Date().toISOString(),
       type: 'message',
     };
-    messages.push(msg);
-    if (messages.length > MAX_MSG) messages.shift();
-    io.emit('chat:message', msg);
+    // broadcast to all OTHER clients (sender already shows optimistically)
+    socket.broadcast.emit('chat:message', msg);
   });
 
   // ── Typing indicator ──
-  socket.on('chat:typing', ({ name }) => {
-    socket.broadcast.emit('chat:typing', { name });
-  });
-  socket.on('chat:stopTyping', () => {
-    socket.broadcast.emit('chat:stopTyping');
-  });
+  socket.on('chat:typing',     ({ name }) => { socket.broadcast.emit('chat:typing',    { name }); });
+  socket.on('chat:stopTyping', ()         => { socket.broadcast.emit('chat:stopTyping');           });
 
   // ── Event: Admin creates event → broadcast to ALL fans ──
   socket.on('event:create', (data) => {
     console.log('📢 New event broadcast:', data.title);
-    io.emit('event:new', data);  // io.emit = ALL clients, socket.broadcast = everyone except sender
+    io.emit('event:new', data);
   });
 
   // ── Event: Manual reminder ──
@@ -104,3 +93,11 @@ io.on('connection', (socket) => {
 
 const PORT = process.env.PORT || 4000;
 server.listen(PORT, () => console.log(`🎬 Chat server running on port ${PORT}`));
+
+// ── Keep-alive self-ping — Render free tier sleep থেকে বাঁচাতে ──
+const SELF_URL = 'https://oindrilaofficialsite.onrender.com';
+setInterval(() => {
+  fetch(SELF_URL)
+    .then(() => console.log('🏓 Self-ping OK'))
+    .catch(() => console.log('⚠️ Self-ping failed'));
+}, 10 * 60 * 1000); // every 10 minutes
