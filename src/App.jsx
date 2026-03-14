@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import Home from './pages/Home';
 import ProfilePage from './pages/ProfilePage';
@@ -22,7 +22,7 @@ const Footer = () => (
     alignItems: 'center',
     justifyContent: 'center',
     gap: 10,
-    marginBottom: 18,   /* clear bottom film border */
+    marginBottom: 18,
   }}>
     <img
       src="/SKT logo.jpg"
@@ -55,38 +55,53 @@ const Footer = () => (
   </footer>
 );
 
+/* ── AppContent ── */
+const AppContent = () => {
+  const location = useLocation();
+
+  return (
+    <CineplexLayout>
+      <Toaster position="top-center" toastOptions={{
+        style: {
+          background: '#141410',
+          color: '#f2ead8',
+          border: '1px solid rgba(201,168,76,0.3)',
+          fontFamily: 'monospace',
+          fontSize: '0.75rem',
+          letterSpacing: '0.1em',
+        }
+      }} />
+
+      {/*
+        key={location.pathname} এখানে দেওয়া হয়েছে।
+        FanNavbar ভেতরে রাখা হয়েছে যাতে route বদলালে
+        navbar সহ সব component fresh re-mount হয়।
+        এতে /community তে community, /events এ events দেখাবে।
+      */}
+      <div key={location.pathname}>
+        <FanNavbar />
+
+        <Routes>
+          <Route path="/"                    element={<Home />} />
+          <Route path="/profile"             element={<ProfilePage />} />
+          <Route path="/admin-oindrila-1234" element={<ManageUpdates />} />
+          <Route path="/fan-zone"            element={<FanAuth />} />
+          <Route path="/community"           element={<FanCommunity />} />
+          <Route path="/notifications"       element={<FanNotifications />} />
+          <Route path="/events"              element={<FanEvent />} />
+        </Routes>
+
+        <Footer />
+      </div>
+    </CineplexLayout>
+  );
+};
+
+/* ── App ── */
 function App() {
   return (
     <Router>
-      <CineplexLayout>
-        {/* Hot toast */}
-        <Toaster position="top-center" toastOptions={{
-          style: {
-            background: '#141410',
-            color: '#f2ead8',
-            border: '1px solid rgba(201,168,76,0.3)',
-            fontFamily: 'monospace',
-            fontSize: '0.75rem',
-            letterSpacing: '0.1em',
-          }
-        }} />
-
-        <FanNavbar />
-        <div>
-          <Routes>
-            <Route path="/"                         element={<Home />} />
-            <Route path="/profile"                  element={<ProfilePage />} />
-            <Route path="/admin-oindrila-1234"       element={<ManageUpdates />} />
-            <Route path="/fan-zone"                  element={<FanAuth />} />
-            <Route path="/community"                 element={<FanCommunity />} />
-            <Route path="/notifications"             element={<FanNotifications />} />
-            <Route path="/events"                    element={<FanEvent />} />
-          </Routes>
-        </div>
-
-        {/* Footer */}
-        <Footer />
-      </CineplexLayout>
+      <AppContent />
     </Router>
   );
 }

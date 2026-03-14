@@ -76,14 +76,11 @@ const AdminLock = ({ onUnlock }) => {
         borderRadius:8, boxShadow:'0 20px 60px rgba(0,0,0,0.8)',
         animation:'lockFadeIn 0.5s ease',
       }}>
-        {/* Sprocket strip top */}
         <div style={{ display:'flex', justifyContent:'space-around', marginBottom:24 }}>
           {Array.from({length:8}).map((_,i) => (
             <div key={i} style={{ width:10, height:7, background:'#0a0a08', border:'1px solid rgba(201,168,76,0.2)', borderRadius:2 }} />
           ))}
         </div>
-
-        {/* Lock icon */}
         <div style={{ textAlign:'center', marginBottom:20 }}>
           <div style={{ fontSize:'2.2rem', marginBottom:8 }}>🎬</div>
           <h1 style={{ fontSize:'1.4rem', letterSpacing:'0.25em', color:'#c9a84c', margin:'0 0 4px' }}>CONTROL PANEL</h1>
@@ -91,8 +88,6 @@ const AdminLock = ({ onUnlock }) => {
             Restricted Access · Oindrila Official
           </p>
         </div>
-
-        {/* Input */}
         <div style={{ animation: shake ? 'lockShake 0.5s ease' : 'none', marginBottom:16 }}>
           <div style={{ position:'relative' }}>
             <input
@@ -114,45 +109,21 @@ const AdminLock = ({ onUnlock }) => {
               onFocus={e => e.target.style.borderColor='rgba(201,168,76,0.5)'}
               onBlur={e  => e.target.style.borderColor= shake ? 'rgba(192,57,43,0.6)' : 'rgba(201,168,76,0.25)'}
             />
-            {/* show/hide toggle */}
-            <button
-              type="button"
-              onClick={() => setShow(s => !s)}
-              style={{
-                position:'absolute', right:12, top:'50%', transform:'translateY(-50%)',
-                background:'none', border:'none', cursor:'pointer',
-                color:'rgba(201,168,76,0.4)', fontSize:'0.75rem', fontFamily:'monospace',
-                letterSpacing:'0.1em', padding:0,
-              }}
-            >{show ? 'HIDE' : 'SHOW'}</button>
+            <button type="button" onClick={() => setShow(s => !s)} style={{ position:'absolute', right:12, top:'50%', transform:'translateY(-50%)', background:'none', border:'none', cursor:'pointer', color:'rgba(201,168,76,0.4)', fontSize:'0.75rem', fontFamily:'monospace', letterSpacing:'0.1em', padding:0 }}>
+              {show ? 'HIDE' : 'SHOW'}
+            </button>
           </div>
-
           {tries > 0 && (
             <p style={{ fontFamily:'monospace', fontSize:'0.48rem', color:'rgba(192,57,43,0.7)', letterSpacing:'0.15em', textTransform:'uppercase', margin:'6px 0 0', textAlign:'center' }}>
               ✕ Incorrect password{tries > 2 ? ` (${tries} attempts)` : ''}
             </p>
           )}
         </div>
-
-        {/* Submit button */}
-        <button
-          onClick={handleSubmit}
-          style={{
-            width:'100%', padding:'12px',
-            background:'rgba(201,168,76,0.12)',
-            border:'1px solid rgba(201,168,76,0.35)',
-            borderRadius:4, color:'#c9a84c', cursor:'pointer',
-            fontFamily:"'Bebas Neue', sans-serif",
-            fontSize:'0.9rem', letterSpacing:'0.25em',
-            transition:'all 0.2s',
-          }}
+        <button onClick={handleSubmit} style={{ width:'100%', padding:'12px', background:'rgba(201,168,76,0.12)', border:'1px solid rgba(201,168,76,0.35)', borderRadius:4, color:'#c9a84c', cursor:'pointer', fontFamily:"'Bebas Neue', sans-serif", fontSize:'0.9rem', letterSpacing:'0.25em', transition:'all 0.2s' }}
           onMouseEnter={e => { e.currentTarget.style.background='#c9a84c'; e.currentTarget.style.color='#0a0a08'; }}
-          onMouseLeave={e => { e.currentTarget.style.background='rgba(201,168,76,0.12)'; e.currentTarget.style.color='#c9a84c'; }}
-        >
+          onMouseLeave={e => { e.currentTarget.style.background='rgba(201,168,76,0.12)'; e.currentTarget.style.color='#c9a84c'; }}>
           ENTER
         </button>
-
-        {/* Sprocket strip bottom */}
         <div style={{ display:'flex', justifyContent:'space-around', marginTop:24 }}>
           {Array.from({length:8}).map((_,i) => (
             <div key={i} style={{ width:10, height:7, background:'#0a0a08', border:'1px solid rgba(201,168,76,0.2)', borderRadius:2 }} />
@@ -239,11 +210,7 @@ const FlyerBurst = ({ active }) => {
   return (
     <div style={{ position:'absolute', top:0, left:'50%', pointerEvents:'none', zIndex:30 }}>
       {particles.map((p,i) => (
-        <div key={i} style={{
-          position:'absolute', left:0, top:0,
-          animation:`flyerPop 0.85s cubic-bezier(0.2,0.8,0.4,1) ${p.delay}ms forwards`,
-          '--tx':`${p.x}px`, '--ty':`${p.y}px`, '--rot':`${p.rot}deg`,
-        }}>{svgs[p.s]}</div>
+        <div key={i} style={{ position:'absolute', left:0, top:0, animation:`flyerPop 0.85s cubic-bezier(0.2,0.8,0.4,1) ${p.delay}ms forwards`, '--tx':`${p.x}px`, '--ty':`${p.y}px`, '--rot':`${p.rot}deg` }}>{svgs[p.s]}</div>
       ))}
     </div>
   );
@@ -272,7 +239,7 @@ const getExpiryInfo = (expiresAt) => {
   return { expired:false, label:`${mins}m left` };
 };
 
-/* ══ FilmExpandCard (Updates list) ══ */
+/* ══ FilmExpandCard ══ */
 const FilmExpandCard = ({ item, isOpen, onToggle, onDelete, index }) => {
   const [burst, setBurst] = useState(false);
   const expiryInfo = getExpiryInfo(item.expiresAt);
@@ -289,11 +256,7 @@ const FilmExpandCard = ({ item, isOpen, onToggle, onDelete, index }) => {
     <>
       <div style={{ position:'relative' }}>
         <FlyerBurst active={burst} />
-        <div onClick={handleToggle} style={{
-          display:'flex', alignItems:'center', gap:10, padding:'10px 14px', cursor:'pointer', userSelect:'none',
-          background: isOpen ? '#2e1c0b' : '#1a1208', borderBottom:'1px solid rgba(201,168,76,0.1)',
-          position:'relative', overflow:'hidden', transition:'background 0.2s',
-        }}>
+        <div onClick={handleToggle} style={{ display:'flex', alignItems:'center', gap:10, padding:'10px 14px', cursor:'pointer', userSelect:'none', background: isOpen ? '#2e1c0b' : '#1a1208', borderBottom:'1px solid rgba(201,168,76,0.1)', position:'relative', overflow:'hidden', transition:'background 0.2s' }}>
           <span style={{ position:'absolute', left:0, top:0, bottom:0, width:3, background: isExpired ? '#c0392b' : '#c9a84c', opacity: isOpen?1:0.45, transition:'opacity 0.3s' }} />
           <div style={{ width:32, height:42, flexShrink:0, borderRadius:2, overflow:'hidden', border:'1px solid rgba(201,168,76,0.3)' }}>
             <img src={item.imageUrl} alt="" style={{ width:'100%', height:'100%', objectFit:'cover' }} />
@@ -313,7 +276,6 @@ const FilmExpandCard = ({ item, isOpen, onToggle, onDelete, index }) => {
           <span style={{ width:18, height:18, borderRadius:'50%', flexShrink:0, border:`1px solid ${isOpen ? '#c9a84c' : 'rgba(201,168,76,0.25)'}`, display:'flex', alignItems:'center', justifyContent:'center', color:'#c9a84c', fontSize:'0.55rem', transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition:'transform 0.4s cubic-bezier(0.34,1.56,0.64,1)' }}>▼</span>
         </div>
       </div>
-
       {isOpen && (
         <div style={{ position:'fixed', inset:0, zIndex:200, background:'rgba(0,0,0,0.88)', display:'flex', alignItems:'center', justifyContent:'center', animation:'modalFadeIn 0.25s ease', padding:'20px' }} onClick={handleToggle}>
           <div onClick={e => e.stopPropagation()} style={{ width:'100%', maxWidth:520, maxHeight:'90vh', overflowY:'auto', background:'#0a0a08', border:'1px solid rgba(201,168,76,0.55)', borderRadius:4, boxShadow:'0 0 80px rgba(201,168,76,0.1), 0 30px 60px rgba(0,0,0,0.8)', animation:'modalSlideUp 0.3s cubic-bezier(0.34,1.56,0.64,1)', scrollbarWidth:'thin', scrollbarColor:'rgba(201,168,76,0.2) #0a0a08', position:'relative' }}>
@@ -354,22 +316,13 @@ const FilmExpandCard = ({ item, isOpen, onToggle, onDelete, index }) => {
   );
 };
 
-/* ══ EXPIRY OPTIONS ══ */
 const EXPIRY_OPTIONS = [
-  { label:'No Limit', value:0   },
-  { label:'1 Hour',   value:1   },
-  { label:'6 Hours',  value:6   },
-  { label:'12 Hours', value:12  },
-  { label:'24 Hours', value:24  },
-  { label:'3 Days',   value:72  },
-  { label:'7 Days',   value:168 },
-  { label:'30 Days',  value:720 },
+  { label:'No Limit', value:0 }, { label:'1 Hour', value:1 }, { label:'6 Hours', value:6 },
+  { label:'12 Hours', value:12 }, { label:'24 Hours', value:24 }, { label:'3 Days', value:72 },
+  { label:'7 Days', value:168 }, { label:'30 Days', value:720 },
 ];
-
-/* ══ EVENT CATEGORIES ══ */
 const EVENT_CATEGORIES = ['Film Release','Web Series','Award Show','Fan Meet','Press Conference','Birthday','Other'];
 
-/* ══ Section Divider ══ */
 const SectionDivider = ({ title, icon }) => (
   <div style={{ display:'flex', alignItems:'center', gap:14, margin:'40px 0 24px' }}>
     <div style={{ display:'flex', flexDirection:'column', gap:3, flexShrink:0 }}>
@@ -384,37 +337,26 @@ const SectionDivider = ({ title, icon }) => (
   </div>
 );
 
-/* ══ File upload button ══ */
 const FileUploadBtn = ({ label, accept, file, onChange, icon }) => (
-  <label style={{
-    display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center',
-    width:'100%', height:90, border:'2px dashed rgba(201,168,76,0.25)', borderRadius:6,
-    background:'rgba(201,168,76,0.02)', cursor:'pointer', transition:'all 0.2s', gap:6,
-  }}
+  <label style={{ display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', width:'100%', height:90, border:'2px dashed rgba(201,168,76,0.25)', borderRadius:6, background:'rgba(201,168,76,0.02)', cursor:'pointer', transition:'all 0.2s', gap:6 }}
     onMouseEnter={e => { e.currentTarget.style.background='rgba(201,168,76,0.07)'; e.currentTarget.style.borderColor='rgba(201,168,76,0.45)'; }}
-    onMouseLeave={e => { e.currentTarget.style.background='rgba(201,168,76,0.02)'; e.currentTarget.style.borderColor='rgba(201,168,76,0.25)'; }}
-  >
+    onMouseLeave={e => { e.currentTarget.style.background='rgba(201,168,76,0.02)'; e.currentTarget.style.borderColor='rgba(201,168,76,0.25)'; }}>
     {file ? (
       <div style={{ display:'flex', alignItems:'center', gap:8, padding:'0 12px', textAlign:'center' }}>
         <span style={{ color:'#c9a84c', flexShrink:0 }}>{icon}</span>
         <span style={{ fontFamily:'monospace', fontSize:'0.6rem', color:'#e8c97a', wordBreak:'break-all', lineHeight:1.3 }}>{file.name}</span>
       </div>
     ) : (
-      <>
-        <span style={{ color:'rgba(201,168,76,0.4)' }}>{icon}</span>
-        <span style={{ fontFamily:"'Bebas Neue', sans-serif", fontSize:'0.65rem', letterSpacing:'0.22em', color:'rgba(201,168,76,0.45)' }}>{label}</span>
-      </>
+      <><span style={{ color:'rgba(201,168,76,0.4)' }}>{icon}</span><span style={{ fontFamily:"'Bebas Neue', sans-serif", fontSize:'0.65rem', letterSpacing:'0.22em', color:'rgba(201,168,76,0.45)' }}>{label}</span></>
     )}
     <input type="file" className="hidden" accept={accept} onChange={onChange} style={{ display:'none' }} />
   </label>
 );
 
-/* ══ Event Row Card (admin list) ══ */
 const EventRowCard = ({ event, onDelete, onMoveToHistory }) => {
   const [historyFile, setHistoryFile] = useState(null);
   const [uploading,   setUploading]   = useState(false);
   const [expanded,    setExpanded]    = useState(false);
-
   const eventDate = event.eventDate?.toDate ? event.eventDate.toDate() : new Date(event.eventDate);
   const isPast    = eventDate < new Date();
 
@@ -431,107 +373,44 @@ const EventRowCard = ({ event, onDelete, onMoveToHistory }) => {
 
   return (
     <div style={{ borderBottom:'1px solid rgba(201,168,76,0.08)', animation:'eventCardIn 0.4s ease both' }}>
-      {/* Row */}
-      <div onClick={() => setExpanded(o => !o)} style={{
-        display:'flex', alignItems:'center', gap:10, padding:'10px 14px', cursor:'pointer',
-        background: expanded ? '#1e1608' : '#141008', transition:'background 0.2s',
-        position:'relative',
-      }}>
+      <div onClick={() => setExpanded(o => !o)} style={{ display:'flex', alignItems:'center', gap:10, padding:'10px 14px', cursor:'pointer', background: expanded ? '#1e1608' : '#141008', transition:'background 0.2s', position:'relative' }}>
         <span style={{ position:'absolute', left:0, top:0, bottom:0, width:3, background: event.status==='history' ? '#888' : isPast ? '#e74c3c' : '#c9a84c', opacity:0.7 }} />
-
-        {/* Poster thumb */}
         <div style={{ width:36, height:50, flexShrink:0, borderRadius:2, overflow:'hidden', border:'1px solid rgba(201,168,76,0.25)', background:'#0a0806' }}>
-          {event.mediaUrl && event.mediaType !== 'video'
-            ? <img src={event.mediaUrl} alt="" style={{ width:'100%', height:'100%', objectFit:'cover' }} />
-            : <div style={{ width:'100%', height:'100%', display:'flex', alignItems:'center', justifyContent:'center' }}><FilmIcon size={14} style={{ color:'rgba(201,168,76,0.3)' }} /></div>
-          }
+          {event.mediaUrl && event.mediaType !== 'video' ? <img src={event.mediaUrl} alt="" style={{ width:'100%', height:'100%', objectFit:'cover' }} /> : <div style={{ width:'100%', height:'100%', display:'flex', alignItems:'center', justifyContent:'center' }}><FilmIcon size={14} style={{ color:'rgba(201,168,76,0.3)' }} /></div>}
         </div>
-
         <div style={{ flex:1, minWidth:0 }}>
           <p style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:'0.92rem', letterSpacing:'0.1em', color:'#f2ead8', margin:0, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{event.title}</p>
           <div style={{ display:'flex', alignItems:'center', gap:6, marginTop:2, flexWrap:'wrap' }}>
             <span style={{ fontFamily:'monospace', fontSize:'0.44rem', color:'rgba(201,168,76,0.4)', letterSpacing:'0.15em', textTransform:'uppercase' }}>{event.category}</span>
-            <span style={{ fontFamily:'monospace', fontSize:'0.44rem', color:'rgba(255,255,255,0.25)', letterSpacing:'0.12em' }}>
-              {eventDate.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' })}
-            </span>
+            <span style={{ fontFamily:'monospace', fontSize:'0.44rem', color:'rgba(255,255,255,0.25)', letterSpacing:'0.12em' }}>{eventDate.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' })}</span>
           </div>
         </div>
-
-        {/* Status badge */}
-        <span style={{
-          fontFamily:'monospace', fontSize:'0.44rem', letterSpacing:'0.18em', textTransform:'uppercase',
-          padding:'2px 7px', borderRadius:2, flexShrink:0,
-          background: event.status==='history' ? 'rgba(100,100,100,0.2)' : isPast ? 'rgba(192,57,43,0.2)' : 'rgba(201,168,76,0.12)',
-          border:`1px solid ${event.status==='history' ? 'rgba(100,100,100,0.4)' : isPast ? 'rgba(192,57,43,0.4)' : 'rgba(201,168,76,0.3)'}`,
-          color: event.status==='history' ? '#888' : isPast ? '#e74c3c' : '#c9a84c',
-          display:'flex', alignItems:'center', gap:4,
-        }}>
+        <span style={{ fontFamily:'monospace', fontSize:'0.44rem', letterSpacing:'0.18em', textTransform:'uppercase', padding:'2px 7px', borderRadius:2, flexShrink:0, background: event.status==='history' ? 'rgba(100,100,100,0.2)' : isPast ? 'rgba(192,57,43,0.2)' : 'rgba(201,168,76,0.12)', border:`1px solid ${event.status==='history' ? 'rgba(100,100,100,0.4)' : isPast ? 'rgba(192,57,43,0.4)' : 'rgba(201,168,76,0.3)'}`, color: event.status==='history' ? '#888' : isPast ? '#e74c3c' : '#c9a84c', display:'flex', alignItems:'center', gap:4 }}>
           {event.status==='history' ? <><Archive size={8}/> History</> : isPast ? <>🔴 Past</> : <><span style={{ width:5, height:5, borderRadius:'50%', background:'#c9a84c', display:'inline-block', animation:'livePulse 1.2s infinite' }} /> Live</>}
         </span>
-
         <span style={{ width:16, height:16, borderRadius:'50%', flexShrink:0, border:`1px solid ${expanded ? '#c9a84c' : 'rgba(201,168,76,0.2)'}`, display:'flex', alignItems:'center', justifyContent:'center', color:'#c9a84c', fontSize:'0.5rem', transform: expanded ? 'rotate(180deg)' : 'rotate(0)', transition:'transform 0.3s' }}>▼</span>
       </div>
-
-      {/* Expanded actions */}
       {expanded && (
         <div style={{ padding:'14px 20px 16px', background:'#0e0b07', borderTop:'1px solid rgba(201,168,76,0.08)' }}>
-          {event.description && (
-            <p style={{ fontFamily:"'Crimson Pro',Georgia,serif", fontSize:'0.78rem', color:'rgba(255,255,255,0.4)', fontStyle:'italic', marginBottom:12, lineHeight:1.5 }}>{event.description}</p>
-          )}
-
+          {event.description && <p style={{ fontFamily:"'Crimson Pro',Georgia,serif", fontSize:'0.78rem', color:'rgba(255,255,255,0.4)', fontStyle:'italic', marginBottom:12, lineHeight:1.5 }}>{event.description}</p>}
           <div style={{ display:'flex', gap:8, flexWrap:'wrap', marginBottom:12 }}>
-            {event.musicUrl && (
-              <span style={{ fontFamily:'monospace', fontSize:'0.44rem', letterSpacing:'0.15em', padding:'2px 8px', borderRadius:2, background:'rgba(201,168,76,0.08)', border:'1px solid rgba(201,168,76,0.2)', color:'#c9a84c', display:'flex', alignItems:'center', gap:4 }}>
-                <Music size={8}/> Has Music
-              </span>
-            )}
-            {event.mediaType === 'video' && (
-              <span style={{ fontFamily:'monospace', fontSize:'0.44rem', letterSpacing:'0.15em', padding:'2px 8px', borderRadius:2, background:'rgba(201,168,76,0.08)', border:'1px solid rgba(201,168,76,0.2)', color:'#c9a84c', display:'flex', alignItems:'center', gap:4 }}>
-                <Video size={8}/> Video Clip
-              </span>
-            )}
+            {event.musicUrl && <span style={{ fontFamily:'monospace', fontSize:'0.44rem', letterSpacing:'0.15em', padding:'2px 8px', borderRadius:2, background:'rgba(201,168,76,0.08)', border:'1px solid rgba(201,168,76,0.2)', color:'#c9a84c', display:'flex', alignItems:'center', gap:4 }}><Music size={8}/> Has Music</span>}
+            {event.mediaType === 'video' && <span style={{ fontFamily:'monospace', fontSize:'0.44rem', letterSpacing:'0.15em', padding:'2px 8px', borderRadius:2, background:'rgba(201,168,76,0.08)', border:'1px solid rgba(201,168,76,0.2)', color:'#c9a84c', display:'flex', alignItems:'center', gap:4 }}><Video size={8}/> Video Clip</span>}
           </div>
-
-          {/* Move to history (only for active events) */}
           {event.status === 'active' && (
             <div style={{ background:'rgba(201,168,76,0.04)', border:'1px solid rgba(201,168,76,0.1)', borderRadius:4, padding:'12px 14px', marginBottom:10 }}>
-              <p style={{ fontFamily:'monospace', fontSize:'0.5rem', letterSpacing:'0.2em', color:'rgba(201,168,76,0.5)', textTransform:'uppercase', marginBottom:8, display:'flex', alignItems:'center', gap:5 }}>
-                <Archive size={9}/> Move to Event History
-              </p>
+              <p style={{ fontFamily:'monospace', fontSize:'0.5rem', letterSpacing:'0.2em', color:'rgba(201,168,76,0.5)', textTransform:'uppercase', marginBottom:8, display:'flex', alignItems:'center', gap:5 }}><Archive size={9}/> Move to Event History</p>
               <div style={{ display:'flex', gap:8, alignItems:'flex-start', flexWrap:'wrap' }}>
                 <div style={{ flex:1, minWidth:180 }}>
-                  <FileUploadBtn
-                    label="SELECT HISTORY PHOTO"
-                    accept="image/*"
-                    file={historyFile}
-                    onChange={e => setHistoryFile(e.target.files[0])}
-                    icon={<ImageIcon size={16}/>}
-                  />
+                  <FileUploadBtn label="SELECT HISTORY PHOTO" accept="image/*" file={historyFile} onChange={e => setHistoryFile(e.target.files[0])} icon={<ImageIcon size={16}/>} />
                 </div>
-                <button
-                  onClick={handleMoveToHistory}
-                  disabled={!historyFile || uploading}
-                  style={{
-                    flexShrink:0, padding:'8px 14px', borderRadius:3, cursor: (!historyFile||uploading) ? 'not-allowed' : 'pointer',
-                    background: (!historyFile||uploading) ? 'rgba(201,168,76,0.05)' : 'rgba(201,168,76,0.15)',
-                    border:`1px solid ${(!historyFile||uploading) ? 'rgba(201,168,76,0.1)' : 'rgba(201,168,76,0.4)'}`,
-                    color: (!historyFile||uploading) ? 'rgba(201,168,76,0.25)' : '#c9a84c',
-                    fontFamily:'monospace', fontSize:'0.52rem', letterSpacing:'0.18em', textTransform:'uppercase',
-                    transition:'all 0.2s', alignSelf:'stretch', display:'flex', alignItems:'center', gap:5,
-                  }}>
+                <button onClick={handleMoveToHistory} disabled={!historyFile || uploading} style={{ flexShrink:0, padding:'8px 14px', borderRadius:3, cursor: (!historyFile||uploading) ? 'not-allowed' : 'pointer', background: (!historyFile||uploading) ? 'rgba(201,168,76,0.05)' : 'rgba(201,168,76,0.15)', border:`1px solid ${(!historyFile||uploading) ? 'rgba(201,168,76,0.1)' : 'rgba(201,168,76,0.4)'}`, color: (!historyFile||uploading) ? 'rgba(201,168,76,0.25)' : '#c9a84c', fontFamily:'monospace', fontSize:'0.52rem', letterSpacing:'0.18em', textTransform:'uppercase', transition:'all 0.2s', alignSelf:'stretch', display:'flex', alignItems:'center', gap:5 }}>
                   <Archive size={11}/> {uploading ? 'Saving...' : 'Archive'}
                 </button>
               </div>
             </div>
           )}
-
-          {/* Delete */}
-          <button onClick={() => onDelete(event.id)} style={{
-            width:'100%', padding:'8px', borderRadius:2, cursor:'pointer', transition:'all 0.2s',
-            fontFamily:'monospace', fontSize:'0.6rem', letterSpacing:'0.18em', textTransform:'uppercase',
-            display:'flex', alignItems:'center', justifyContent:'center', gap:6,
-            background:'rgba(192,57,43,0.1)', border:'1px solid rgba(192,57,43,0.25)', color:'#e74c3c',
-          }}
+          <button onClick={() => onDelete(event.id)} style={{ width:'100%', padding:'8px', borderRadius:2, cursor:'pointer', transition:'all 0.2s', fontFamily:'monospace', fontSize:'0.6rem', letterSpacing:'0.18em', textTransform:'uppercase', display:'flex', alignItems:'center', justifyContent:'center', gap:6, background:'rgba(192,57,43,0.1)', border:'1px solid rgba(192,57,43,0.25)', color:'#e74c3c' }}
             onMouseEnter={e => { e.currentTarget.style.background='#c0392b'; e.currentTarget.style.color='#fff'; }}
             onMouseLeave={e => { e.currentTarget.style.background='rgba(192,57,43,0.1)'; e.currentTarget.style.color='#e74c3c'; }}
           ><Trash2 size={11}/> Delete Event</button>
@@ -542,13 +421,9 @@ const EventRowCard = ({ event, onDelete, onMoveToHistory }) => {
 };
 
 /* ══════════════════════════════════════════
-   MAIN COMPONENT
+   INNER — সব hooks এখানে
 ══════════════════════════════════════════ */
-const ManageUpdates = () => {
-  const [unlocked, setUnlocked] = useState(false);
-  if (!unlocked) return <AdminLock onUnlock={() => setUnlocked(true)} />;
-
-  /* ── Updates state ── */
+const ManageUpdatesInner = () => {
   const [title,       setTitle]       = useState('');
   const [link,        setLink]        = useState('');
   const [category,    setCategory]    = useState('Film');
@@ -558,29 +433,24 @@ const ManageUpdates = () => {
   const [allUpdates,  setAllUpdates]  = useState([]);
   const [expandedId,  setExpandedId]  = useState(null);
   const [expiryHours, setExpiryHours] = useState(0);
-
-  /* ── Event state ── */
-  const [evTitle,       setEvTitle]       = useState('');
-  const [evDesc,        setEvDesc]        = useState('');
-  const [evCategory,    setEvCategory]    = useState('Film Release');
-  const [evDate,        setEvDate]        = useState('');
-  const [evMediaFile,   setEvMediaFile]   = useState(null);
-  const [evMediaType,   setEvMediaType]   = useState('image'); // 'image' | 'video'
-  const [evMusicFile,   setEvMusicFile]   = useState(null);
-  const [evUploading,   setEvUploading]   = useState(false);
-  const [allEvents,     setAllEvents]     = useState([]);
-  const [evTab,         setEvTab]         = useState('active'); // 'active' | 'history'
-
+  const [evTitle,     setEvTitle]     = useState('');
+  const [evDesc,      setEvDesc]      = useState('');
+  const [evCategory,  setEvCategory]  = useState('Film Release');
+  const [evDate,      setEvDate]      = useState('');
+  const [evMediaFile, setEvMediaFile] = useState(null);
+  const [evMediaType, setEvMediaType] = useState('image');
+  const [evMusicFile, setEvMusicFile] = useState(null);
+  const [evUploading, setEvUploading] = useState(false);
+  const [allEvents,   setAllEvents]   = useState([]);
+  const [evTab,       setEvTab]       = useState('active');
   const socketRef = useRef(null);
 
-  /* ── Socket.io connect ── */
   useEffect(() => {
     const s = io(SOCKET_URL, { transports:['websocket'] });
     socketRef.current = s;
     return () => s.disconnect();
   }, []);
 
-  /* ── Fetch updates ── */
   const fetchUpdates = async () => {
     const q    = query(collection(db, 'updates'), orderBy('createdAt', 'desc'));
     const snap = await getDocs(q);
@@ -588,7 +458,6 @@ const ManageUpdates = () => {
   };
   useEffect(() => { fetchUpdates(); }, []);
 
-  /* ── Auto-delete expired updates ── */
   useEffect(() => {
     const now = Date.now();
     allUpdates.forEach(async item => {
@@ -598,7 +467,6 @@ const ManageUpdates = () => {
     });
   }, [allUpdates]);
 
-  /* ── Realtime events ── */
   useEffect(() => {
     const status = evTab === 'active' ? 'active' : 'history';
     const q = query(collection(db, 'events'), where('status','==',status), orderBy('eventDate', evTab==='active' ? 'asc' : 'desc'));
@@ -606,7 +474,6 @@ const ManageUpdates = () => {
     return () => unsub();
   }, [evTab]);
 
-  /* ── Publish update ── */
   const handleUpload = async (e) => {
     e.preventDefault();
     if (!title)     return toast.error('Title required!');
@@ -615,11 +482,7 @@ const ManageUpdates = () => {
     try {
       const imageUrl  = await uploadToCloudinary(imageFile, 'image');
       const expiresAt = expiryHours > 0 ? Timestamp.fromDate(new Date(Date.now() + expiryHours * 3600000)) : null;
-      await addDoc(collection(db, 'updates'), {
-        title, type, category, link: link || '',
-        imageUrl, createdAt: serverTimestamp(),
-        ...(expiresAt && { expiresAt }),
-      });
+      await addDoc(collection(db, 'updates'), { title, type, category, link: link || '', imageUrl, createdAt: serverTimestamp(), ...(expiresAt && { expiresAt }) });
       toast.success(`Published! ${expiryHours > 0 ? `Expires in ${expiryHours}h` : 'No expiry set'}`);
       setTitle(''); setLink(''); setImageFile(null); setExpiryHours(0);
       fetchUpdates();
@@ -627,92 +490,61 @@ const ManageUpdates = () => {
     finally { setUploading(false); }
   };
 
-  /* ── Delete update ── */
   const handleDelete = async (id) => {
     if (!window.confirm('Delete content?')) return;
     try { await deleteDoc(doc(db, 'updates', id)); toast.success('Deleted!'); fetchUpdates(); }
     catch { toast.error('Failed!'); }
   };
 
-  /* ── Publish event ── */
   const handleEventPublish = async (e) => {
     e.preventDefault();
-    if (!evTitle)    return toast.error('Event title required!');
-    if (!evDate)     return toast.error('Event date required!');
+    if (!evTitle)     return toast.error('Event title required!');
+    if (!evDate)      return toast.error('Event date required!');
     if (!evMediaFile) return toast.error('Poster or video clip required!');
     setEvUploading(true);
     try {
       const mediaUrl  = await uploadToCloudinary(evMediaFile, evMediaType === 'video' ? 'video' : 'image');
       let musicUrl    = null;
-      if (evMusicFile) musicUrl = await uploadToCloudinary(evMusicFile, 'video'); // Cloudinary accepts audio as 'video'
-
+      if (evMusicFile) musicUrl = await uploadToCloudinary(evMusicFile, 'video');
       const eventDate = Timestamp.fromDate(new Date(evDate));
-
-      const eventData = {
-        title:     evTitle,
-        description: evDesc || '',
-        category:  evCategory,
-        eventDate,
-        mediaUrl,
-        mediaType: evMediaType,
-        status:    'active',
-        createdAt: serverTimestamp(),
-        ...(musicUrl && { musicUrl }),
-      };
-
+      const eventData = { title: evTitle, description: evDesc || '', category: evCategory, eventDate, mediaUrl, mediaType: evMediaType, status: 'active', createdAt: serverTimestamp(), ...(musicUrl && { musicUrl }) };
       const docRef = await addDoc(collection(db, 'events'), eventData);
-
-      // Notify via socket
       socketRef.current?.emit('event:create', { id: docRef.id, ...eventData, eventDate: new Date(evDate).toISOString() });
-
       toast.success('Event published! Fans will be notified.');
       setEvTitle(''); setEvDesc(''); setEvDate(''); setEvMediaFile(null); setEvMusicFile(null); setEvCategory('Film Release'); setEvMediaType('image');
     } catch (err) { toast.error('Event publish failed!'); console.error(err); }
     finally { setEvUploading(false); }
   };
 
-  /* ── Delete event ── */
   const handleEventDelete = async (id) => {
     if (!window.confirm('Delete this event permanently?')) return;
     try { await deleteDoc(doc(db, 'events', id)); toast.success('Event deleted!'); }
     catch { toast.error('Failed to delete event!'); }
   };
 
-  /* ── Move event to history ── */
   const handleMoveToHistory = async (id, historyImageUrl) => {
     await updateDoc(doc(db, 'events', id), { status:'history', historyImageUrl });
   };
 
-  /* ════════════════════════════════════ RENDER ════════════════════════════════════ */
   return (
     <div className="min-h-screen w-full relative flex flex-col font-sans text-white">
       <FontImport />
       <div className="fixed inset-0 z-0 bg-black/70 backdrop-blur-sm" />
-
       <main className="relative z-10 w-full max-w-4xl mx-auto p-4 md:py-16">
-
-        {/* ── PAGE HEADER ── */}
         <header className="mb-10 text-center">
           <h1 style={{ fontFamily:"'Bebas Neue', sans-serif", fontSize:'clamp(2.5rem, 6vw, 4.5rem)', letterSpacing:'0.18em', textTransform:'uppercase', color:'#fff', textShadow:'0 0 40px rgba(201,168,76,0.15)' }}>
             CONTROL <span style={{ color:'#c9a84c' }}>PANEL</span>
           </h1>
         </header>
 
-        {/* ══════════════════════════════════
-            SECTION 1 — PUBLISH UPDATE
-        ══════════════════════════════════ */}
         <SectionDivider title="Publish Update" icon={<ImageIcon size={18}/>} />
-
         <div className="flex justify-center mb-8">
           <form onSubmit={handleUpload} className="w-full max-w-xl space-y-8 bg-white/5 p-8 rounded-[2rem] border border-white/10 shadow-2xl">
-
             <CustomInput label="WHERE TO SHOW?" isSelect value={type} onChange={e => setType(e.target.value)}>
               <option value="Project">My Works Section</option>
               <option value="Announcement">Latest News Section</option>
             </CustomInput>
-
             <CustomInput label="CONTENT TITLE" value={title} onChange={e => setTitle(e.target.value)} placeholder="Title likhun..." />
-
             <div>
               <label style={{ display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', width:'100%', maxWidth:440, height:100, border:'2px dashed rgba(201,168,76,0.3)', borderRadius:6, background:'rgba(201,168,76,0.03)', cursor:'pointer', transition:'background 0.2s' }}
                 onMouseEnter={e => e.currentTarget.style.background='rgba(201,168,76,0.07)'}
@@ -725,17 +557,13 @@ const ManageUpdates = () => {
                 <input type="file" className="hidden" accept="image/*" onChange={e => setImageFile(e.target.files[0])} style={{ display:'none' }} />
               </label>
             </div>
-
             <CustomInput label="CATEGORY" isSelect value={category} onChange={e => setCategory(e.target.value)}>
               <option value="Film">Film</option>
               <option value="Web Series">Web Series</option>
               <option value="Serial">Serial</option>
               <option value="News">News</option>
             </CustomInput>
-
             <CustomInput label="ACTION LINK (URL)" value={link} onChange={e => setLink(e.target.value)} placeholder="https://..." />
-
-            {/* Expiry */}
             <div style={{ maxWidth:440 }}>
               <div style={{ display:'flex', alignItems:'center', gap:6, marginBottom:8 }}>
                 <span style={{ width:8, height:8, borderTop:'1.5px solid rgba(201,168,76,0.5)', borderLeft:'1.5px solid rgba(201,168,76,0.5)', display:'inline-block', flexShrink:0 }} />
@@ -750,12 +578,10 @@ const ManageUpdates = () => {
               {expiryHours > 0 && <p style={{ fontFamily:'monospace', fontSize:'0.55rem', color:'rgba(201,168,76,0.45)', letterSpacing:'0.15em', marginTop:6, display:'flex', alignItems:'center', gap:4 }}><Clock size={9} /> Auto-delete after {expiryHours >= 24 ? `${expiryHours/24} day(s)` : `${expiryHours} hour(s)`}</p>}
               <div style={{ height:1, background:'linear-gradient(to right, transparent, rgba(201,168,76,0.2), transparent)', marginTop:8 }} />
             </div>
-
             <div className="flex justify-start"><CustomButton loading={uploading} type="submit">PUBLISH NOW</CustomButton></div>
           </form>
         </div>
 
-        {/* Live Updates list */}
         <div style={{ background:'#0a0a08', border:'1px solid rgba(201,168,76,0.15)', borderRadius:16, overflow:'hidden', boxShadow:'0 8px 40px rgba(0,0,0,0.6)', marginBottom:8 }}>
           <div style={{ padding:'14px 20px', borderBottom:'1px solid rgba(201,168,76,0.12)', background:'rgba(201,168,76,0.04)', display:'flex', justifyContent:'space-between', alignItems:'center' }}>
             <h2 style={{ fontFamily:"'Bebas Neue', sans-serif", fontSize:'0.9rem', letterSpacing:'0.25em', color:'rgba(201,168,76,0.6)', textTransform:'uppercase' }}>Live Updates ({allUpdates.length})</h2>
@@ -773,41 +599,21 @@ const ManageUpdates = () => {
           </div>
         </div>
 
-        {/* ══════════════════════════════════
-            SECTION 2 — CREATE EVENT
-        ══════════════════════════════════ */}
         <SectionDivider title="Create Event" icon={<Calendar size={18}/>} />
-
         <div className="flex justify-center mb-8">
           <form onSubmit={handleEventPublish} className="w-full max-w-xl space-y-6 bg-white/5 p-8 rounded-[2rem] border border-white/10 shadow-2xl">
-
-            {/* Title */}
             <CustomInput label="EVENT TITLE" value={evTitle} onChange={e => setEvTitle(e.target.value)} placeholder="e.g. New Film Release..." />
-
-            {/* Description */}
             <div>
               <div style={{ display:'flex', alignItems:'center', gap:6, marginBottom:8 }}>
                 <span style={{ width:8, height:8, borderTop:'1.5px solid rgba(201,168,76,0.5)', borderLeft:'1.5px solid rgba(201,168,76,0.5)', display:'inline-block', flexShrink:0 }} />
                 <span style={{ fontFamily:"'Bebas Neue',monospace", fontSize:'0.65rem', letterSpacing:'0.28em', textTransform:'uppercase', color:'rgba(201,168,76,0.7)' }}>SHORT DESCRIPTION</span>
               </div>
-              <textarea
-                value={evDesc}
-                onChange={e => setEvDesc(e.target.value)}
-                placeholder="Event description (optional)..."
-                rows={3}
-                style={{
-                  width:'100%', background:'rgba(201,168,76,0.07)', border:'1px solid rgba(201,168,76,0.3)',
-                  borderRadius:4, color:'#f2ead8', fontFamily:"'Crimson Pro',Georgia,serif",
-                  fontSize:'0.82rem', padding:'10px 12px', resize:'vertical',
-                  outline:'none', transition:'all 0.2s', lineHeight:1.5,
-                  boxShadow:'inset 0 2px 8px rgba(0,0,0,0.5)',
-                }}
+              <textarea value={evDesc} onChange={e => setEvDesc(e.target.value)} placeholder="Event description (optional)..." rows={3}
+                style={{ width:'100%', background:'rgba(201,168,76,0.07)', border:'1px solid rgba(201,168,76,0.3)', borderRadius:4, color:'#f2ead8', fontFamily:"'Crimson Pro',Georgia,serif", fontSize:'0.82rem', padding:'10px 12px', resize:'vertical', outline:'none', transition:'all 0.2s', lineHeight:1.5, boxShadow:'inset 0 2px 8px rgba(0,0,0,0.5)' }}
                 onFocus={e => e.target.style.borderColor='rgba(201,168,76,0.5)'}
                 onBlur={e  => e.target.style.borderColor='rgba(201,168,76,0.2)'}
               />
             </div>
-
-            {/* Category */}
             <div>
               <div style={{ display:'flex', alignItems:'center', gap:6, marginBottom:8 }}>
                 <span style={{ width:8, height:8, borderTop:'1.5px solid rgba(201,168,76,0.5)', borderLeft:'1.5px solid rgba(201,168,76,0.5)', display:'inline-block', flexShrink:0 }} />
@@ -819,29 +625,17 @@ const ManageUpdates = () => {
                 ))}
               </div>
             </div>
-
-            {/* Event Date */}
             <div>
               <div style={{ display:'flex', alignItems:'center', gap:6, marginBottom:8 }}>
                 <span style={{ width:8, height:8, borderTop:'1.5px solid rgba(201,168,76,0.5)', borderLeft:'1.5px solid rgba(201,168,76,0.5)', display:'inline-block', flexShrink:0 }} />
                 <span style={{ fontFamily:"'Bebas Neue',monospace", fontSize:'0.65rem', letterSpacing:'0.28em', textTransform:'uppercase', color:'rgba(201,168,76,0.7)' }}>EVENT DATE & TIME</span>
               </div>
-              <input
-                type="datetime-local"
-                value={evDate}
-                onChange={e => setEvDate(e.target.value)}
-                style={{
-                  background:'rgba(0,0,0,0.4)', border:'1px solid rgba(201,168,76,0.2)',
-                  borderRadius:4, color:'#f2ead8', fontFamily:'monospace', fontSize:'0.72rem',
-                  padding:'9px 12px', outline:'none', transition:'border-color 0.2s',
-                  colorScheme:'dark', width:'100%',
-                }}
+              <input type="datetime-local" value={evDate} onChange={e => setEvDate(e.target.value)}
+                style={{ background:'rgba(0,0,0,0.4)', border:'1px solid rgba(201,168,76,0.2)', borderRadius:4, color:'#f2ead8', fontFamily:'monospace', fontSize:'0.72rem', padding:'9px 12px', outline:'none', transition:'border-color 0.2s', colorScheme:'dark', width:'100%' }}
                 onFocus={e => e.target.style.borderColor='rgba(201,168,76,0.5)'}
                 onBlur={e  => e.target.style.borderColor='rgba(201,168,76,0.2)'}
               />
             </div>
-
-            {/* Media type toggle */}
             <div>
               <div style={{ display:'flex', alignItems:'center', gap:6, marginBottom:8 }}>
                 <span style={{ width:8, height:8, borderTop:'1.5px solid rgba(201,168,76,0.5)', borderLeft:'1.5px solid rgba(201,168,76,0.5)', display:'inline-block', flexShrink:0 }} />
@@ -852,38 +646,21 @@ const ManageUpdates = () => {
                   <button key={opt.v} type="button" onClick={() => setEvMediaType(opt.v)} style={{ display:'flex', alignItems:'center', gap:6, fontFamily:'monospace', fontSize:'0.55rem', letterSpacing:'0.15em', textTransform:'uppercase', padding:'7px 14px', borderRadius:2, cursor:'pointer', transition:'all 0.2s', background: evMediaType===opt.v ? 'rgba(201,168,76,0.18)' : 'transparent', border:`1px solid ${evMediaType===opt.v ? 'rgba(201,168,76,0.5)' : 'rgba(201,168,76,0.15)'}`, color: evMediaType===opt.v ? '#c9a84c' : 'rgba(201,168,76,0.35)' }}>{opt.icon}{opt.l}</button>
                 ))}
               </div>
-              <FileUploadBtn
-                label={evMediaType==='image' ? 'SELECT POSTER / PHOTO' : 'SELECT VIDEO CLIP'}
-                accept={evMediaType==='image' ? 'image/*' : 'video/*'}
-                file={evMediaFile}
-                onChange={e => setEvMediaFile(e.target.files[0])}
-                icon={evMediaType==='image' ? <ImageIcon size={18}/> : <Video size={18}/>}
-              />
+              <FileUploadBtn label={evMediaType==='image' ? 'SELECT POSTER / PHOTO' : 'SELECT VIDEO CLIP'} accept={evMediaType==='image' ? 'image/*' : 'video/*'} file={evMediaFile} onChange={e => setEvMediaFile(e.target.files[0])} icon={evMediaType==='image' ? <ImageIcon size={18}/> : <Video size={18}/>} />
             </div>
-
-            {/* Music upload */}
             <div>
               <div style={{ display:'flex', alignItems:'center', gap:6, marginBottom:8 }}>
                 <span style={{ width:8, height:8, borderTop:'1.5px solid rgba(201,168,76,0.5)', borderLeft:'1.5px solid rgba(201,168,76,0.5)', display:'inline-block', flexShrink:0 }} />
                 <span style={{ fontFamily:"'Bebas Neue',monospace", fontSize:'0.65rem', letterSpacing:'0.28em', textTransform:'uppercase', color:'rgba(201,168,76,0.7)' }}>BACKGROUND MUSIC <span style={{ fontSize:'0.5rem', opacity:0.5 }}>(OPTIONAL)</span></span>
               </div>
-              <FileUploadBtn
-                label="SELECT MUSIC FILE"
-                accept="audio/*"
-                file={evMusicFile}
-                onChange={e => setEvMusicFile(e.target.files[0])}
-                icon={<Music size={18}/>}
-              />
+              <FileUploadBtn label="SELECT MUSIC FILE" accept="audio/*" file={evMusicFile} onChange={e => setEvMusicFile(e.target.files[0])} icon={<Music size={18}/>} />
             </div>
-
             <div style={{ height:1, background:'linear-gradient(to right, transparent, rgba(201,168,76,0.2), transparent)' }} />
             <div className="flex justify-start"><CustomButton loading={evUploading} type="submit">PUBLISH EVENT</CustomButton></div>
           </form>
         </div>
 
-        {/* ── Event List ── */}
         <div style={{ background:'#0a0a08', border:'1px solid rgba(201,168,76,0.15)', borderRadius:16, overflow:'hidden', boxShadow:'0 8px 40px rgba(0,0,0,0.6)' }}>
-          {/* Tabs */}
           <div style={{ padding:'12px 20px', borderBottom:'1px solid rgba(201,168,76,0.12)', background:'rgba(201,168,76,0.04)', display:'flex', alignItems:'center', justifyContent:'space-between', flexWrap:'wrap', gap:8 }}>
             <h2 style={{ fontFamily:"'Bebas Neue',sans-serif", fontSize:'0.9rem', letterSpacing:'0.25em', color:'rgba(201,168,76,0.6)', textTransform:'uppercase', margin:0 }}>All Events ({allEvents.length})</h2>
             <div style={{ display:'flex', gap:4 }}>
@@ -892,20 +669,25 @@ const ManageUpdates = () => {
               ))}
             </div>
           </div>
-
           <div style={{ maxHeight:600, overflowY:'auto', scrollbarWidth:'thin', scrollbarColor:'rgba(201,168,76,0.3) #0a0a08' }}>
             {allEvents.length === 0
               ? <div style={{ padding:40, textAlign:'center', color:'rgba(255,255,255,0.18)', fontFamily:'monospace', fontSize:'0.7rem', letterSpacing:'0.2em', textTransform:'uppercase' }}>No {evTab} events</div>
-              : allEvents.map(ev => (
-                  <EventRowCard key={ev.id} event={ev} onDelete={handleEventDelete} onMoveToHistory={handleMoveToHistory} />
-                ))
+              : allEvents.map(ev => <EventRowCard key={ev.id} event={ev} onDelete={handleEventDelete} onMoveToHistory={handleMoveToHistory} />)
             }
           </div>
         </div>
-
       </main>
     </div>
   );
+};
+
+/* ══════════════════════════════════════════
+   MAIN — lock gate + inner
+══════════════════════════════════════════ */
+const ManageUpdates = () => {
+  const [unlocked, setUnlocked] = useState(false);
+  if (!unlocked) return <AdminLock onUnlock={() => setUnlocked(true)} />;
+  return <ManageUpdatesInner />;
 };
 
 export default ManageUpdates;
