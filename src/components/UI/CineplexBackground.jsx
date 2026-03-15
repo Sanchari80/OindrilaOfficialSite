@@ -95,10 +95,11 @@ const CineplexBackground = () => {
       <div className="glow-red" />
 
       {/* Film borders */}
-      <div className="film-border-top" />
-      <div className="film-border-bottom" />
-      <div className="film-side-left" />
-      <div className="film-side-right" />
+           <div className="film-border-top" style={{ zIndex: 0 }} /> 
+           <div className="film-border-bottom" style={{ zIndex: 0 }} />
+           <div className="film-side-left" style={{ zIndex: 0 }} />
+             <div className="film-side-right" style={{ zIndex: 0 }} />
+
 
       {/* Floating flyers */}
       {FLYERS.map((f, i) => {
@@ -111,7 +112,7 @@ const CineplexBackground = () => {
             width: f.width,
             height: f.height,
             // Change this line (inside the FLYERS map)
-zIndex: -1, // 3 theke -1 kore den jate floating shapes gulo background-e chole jay
+            zIndex: -1, // 3 theke -1 kore den jate floating shapes gulo background-e chole jay
             pointerEvents: 'none',
             animation: `${f.anim} ${f.duration} linear ${f.delay} infinite`,
             willChange: 'transform, opacity',

@@ -139,7 +139,7 @@ const MobilePhotoStrip = () => {
   }, [running, next]);
 
   return (
-    <div style={{ width: '80%', background: '#0f0d0a', borderBottom: '1px solid rgba(201,168,76,0.2)', overflow: 'hidden' }}>
+    <div style={{ width: '80%', background: '#0f0d0a', borderBottom: '1px solid rgba(201,168,76,0.2)', overflow: 'hidden',zIndex: 5 ,position: 'relative' }}>
       {/* top sprocket */}
       <div style={{ height: 10, background: '#1c1409', display: 'flex', alignItems: 'center', justifyContent: 'space-around', padding: '0 8px' }}>
         {[...Array(14)].map((_,i) => <div key={i} style={{ width: 8, height: 5, background: '#2a1a08', borderRadius: 1, border: '1px solid rgba(201,168,76,0.35)' }} />)}
