@@ -110,7 +110,8 @@ const CineplexBackground = () => {
             bottom: '-20vh',
             width: f.width,
             height: f.height,
-            zIndex: 3,
+            // Change this line (inside the FLYERS map)
+zIndex: -1, // 3 theke -1 kore den jate floating shapes gulo background-e chole jay
             pointerEvents: 'none',
             animation: `${f.anim} ${f.duration} linear ${f.delay} infinite`,
             willChange: 'transform, opacity',
