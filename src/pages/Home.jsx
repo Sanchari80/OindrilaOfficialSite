@@ -299,7 +299,7 @@ const Home = () => {
 
         {/* ── Header ── */}
         <header className="text-center py-8">
-          <h1 style={{ fontFamily:"'Bebas Neue', sans-serif", fontSize:'clamp(3rem, 8vw, 6rem)', letterSpacing:'0.15em', color:'#f2ead8', textShadow:'0 0 40px rgba(201,168,76,0.2)', lineHeight:1 }}>
+          <h1 style={{ fontFamily:"'Bebas Neue', sans-serif", fontSize:'clamp(2rem, 8vw, 6rem)', letterSpacing:'0.15em', color:'#f2ead8', textShadow:'0 0 40px rgba(201,168,76,0.2)', lineHeight:1, marginLeft:'0.800em' }}>
             OINDRILA <span style={{ color:'#c9a84c' }}>SEN</span>
           </h1>
           <div style={{ display:'flex', alignItems:'center', justifyContent:'center', gap:12, marginTop:10 }}>
