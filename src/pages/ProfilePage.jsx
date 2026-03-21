@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
 const PHOTOS = [
-  '/oinz123.png',
-  '/oinzz.png',
-  '/oinzz1.png',
-  '/sen.jpg',
+  'C:\\Users\\User\\OneDrive\\Desktop\\oindrila-official-site\\public\\oinz123.png ',
+  'C:\\Users\\User\\OneDrive\\Desktop\\oindrila-official-site\\public\\sen.jpg',
+  'C:\\Users\\User\\OneDrive\\Desktop\\oindrila-official-site\\public\\oinzzz.png',
+  'C:\\Users\\User\\OneDrive\\Desktop\\oindrila-official-site\\public\\oindrila.png',
 ];
 
 const INTERVAL = 4000;
@@ -13,14 +13,14 @@ const INTERVAL = 4000;
 const INFO = {
   personal: [
     { label: 'Full Name',       value: 'Oindrila Sen' },
-    { label: 'Birthday',        value: '31st March' },
+    { label: 'Birthday',        value: '31 March' },
     { label: 'Birthplace',      value: 'Kolkata, India' },
     { label: 'Religion',        value: 'Hinduism' },
     { label: 'Marital Status',  value: 'Unmarried' },
     { label: 'Hobbies',         value: 'Cooking, Shopping, Gymming' },
     { label: 'Debut Film',      value: 'Bondhon (2000) — as Child Artist' },
-    { label: 'Popular Serials', value: 'Sat Pake Bandha · Phagun Bou' },
-    { label: 'Sat Pake Bandha', value: 'Played lead role — one of the most beloved Bengali TV serials' },
+    { label: 'Popular Serials', value: 'Sat Pake Bandha' },
+    { label: 'Sat Pake Bandha', value: 'Played lead role — one of the most beloved characters' },
     { label: 'Phagun Bou',      value: 'Played lead role Tuni — iconic character in Bengali television' },
   ],
   favourites: [
@@ -34,7 +34,7 @@ const INFO = {
   family: [
     { label: 'Father',  value: 'Shantanu Sen' },
     { label: 'Mother',  value: 'Kasturi Sen' },
-    { label: 'Partner', value: 'Ankush Hazra (Actor)' },
+    { label: 'Partner', value: 'Ankush Hazra ' },
   ],
 };
 
